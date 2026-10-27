@@ -1,0 +1,18 @@
+# Local research, user decisions, and backups never belong in Git.
+/data/
+/artifacts/
+__pycache__/
+*.py[cod]
+*.sqlite*
+*.db
+*.db-*
+*.lock
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+.DS_Store
+*.log
+TASK*.md
+build-notes.md

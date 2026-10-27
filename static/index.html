@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Outreach Finder · Manual workspace</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body>
+<aside class="sidebar" aria-label="Workspace">
+<a class="brand" href="/"><span class="brand-mark" aria-hidden="true">◎</span>Outreach<span class="brand-light">Finder</span></a>
+<div class="workspace-label">WORKSPACE</div>
+<nav aria-label="Workspace views">
+<button id="nav-dashboard" type="button" class="nav-item"><span aria-hidden="true">◫</span>Dashboard</button>
+<button id="nav-prospects" type="button" class="nav-item"><span aria-hidden="true">▤</span>Prospects</button>
+<button id="nav-campaigns" type="button" class="nav-item"><span aria-hidden="true">▱</span>Campaigns</button>
+<button id="nav-followups" type="button" class="nav-item"><span aria-hidden="true">◷</span>Follow-ups</button>
+<div class="workspace-label">REVIEW</div>
+<button id="nav-shortlist" type="button" class="nav-item">Shortlist<span id="count-shortlist" class="nav-count">0</span></button>
+<button id="nav-suppressed" type="button" class="nav-item">Suppressed<span id="count-suppressed" class="nav-count">0</span></button>
+</nav>
+<div class="sidebar-bottom"><span class="local-dot" aria-hidden="true"></span> Manual tracking<small>No synced inbox. No auto-sending.</small></div>
+</aside>
+<div class="workspace">
+<header class="topbar"><div class="breadcrumb">Workspace <span>/</span> X-first outreach</div><span class="local-badge">Local data only</span></header>
+<main>
+<div class="page-heading"><div><div class="eyebrow">MANUAL OUTREACH WORKSPACE</div><h1 id="view-title">Dashboard</h1></div><button id="refresh" type="button" class="refresh">↻ Refresh data</button></div>
+<div id="notice" role="status" aria-live="polite"></div>
+<section id="dashboard" aria-label="Manual outreach analytics">
+<div class="section-heading"><p class="muted">Real manually logged activity · UTC</p><label>Range <select id="analytics-range"><option value="7">Last 7 days</option><option value="30">Last 30 days</option></select></label></div>
+<section class="metrics" aria-label="Outreach activity">
+<div class="metric"><span><i class="metric-icon blue">↗</i>Contacted</span><strong id="kpi-contacted">—</strong><small>Unique people in range</small></div>
+<div class="metric"><span><i class="metric-icon green">↩</i>Replied</span><strong id="kpi-replied">—</strong><small id="reply-rate">—</small></div>
+<div class="metric"><span><i class="metric-icon violet">◇</i>Opportunities</span><strong id="kpi-opportunity">—</strong><small id="opportunity-rate">—</small></div>
+<div class="metric"><span><i class="metric-icon amber">◷</i>Follow-ups due</span><strong id="kpi-due">—</strong><small>Current actionable queue</small></div>
+</section>
+<section class="chart-panel"><h2>Outreach activity</h2><div class="chart-legend"><span class="series-contacted">● Contacted</span><span class="series-follow_up">● Follow-ups</span><span class="series-replied">● Replies</span><span class="series-opportunity">● Opportunities</span></div><div id="activity-chart"></div><p id="chart-empty" class="empty-state">No activity logged in this range. Research and shortlist decisions are not contact events.</p><p id="cohort-note" class="muted"></p><p class="muted">Chart: event counts per UTC day. Rates: people with both contact and outcome in range ÷ contacted people in range. Reply/opportunity logs never invent contacts.</p></section>
+<section class="chart-panel"><h2>Daily manual contact goal</h2><p id="daily-progress">—</p><label>Daily target <input id="daily-target" type="number" min="1" max="10000" value="30"></label> <button id="save-target" type="button">Save target</button><p class="muted">A planning target, not discoveries or qualified candidates. No quota automation. Verify relevance and contact route before sending; a verified personal X is optional.</p></section>
+</section>
+<section id="campaign-panel" class="chart-panel" hidden><h2>Campaigns</h2><p class="muted">Organize research cohorts, not automated sequences.</p><label>Campaign name <input id="campaign-name" maxlength="120" placeholder="e.g. AI educators"></label> <button id="create-campaign" type="button">Create campaign</button><div id="campaign-list"></div></section>
+<section id="research-panel" class="list-panel" aria-label="Prospect review desk" hidden>
+<div class="list-heading"><h2>Research directory <span id="result-count">—</span></h2><span class="muted">Contact route review required</span></div>
+<div class="research-counts" aria-label="All imported record totals">Imported <strong id="metric-total">—</strong> · Verified X <strong id="metric-verified">—</strong> · Income citations <strong id="metric-revenue">—</strong> · Shortlisted <strong id="metric-shortlist">—</strong></div>
+<section class="filters" aria-label="Filter prospects">
+<label class="search-label"><span class="sr-only">Search prospects</span><input id="search" type="search" placeholder="Search name, company, offer…"></label>
+<label><span class="sr-only">Review status</span><select id="status"><option value="">All review states</option><option value="new">New</option><option value="shortlist">Shortlist</option><option value="maybe">Maybe</option><option value="reject">Reject</option><option value="do_not_contact">Do not contact</option></select></label>
+<label><span class="sr-only">Income evidence</span><select id="income"><option value="">All income evidence</option><option value="unknown">Unknown</option><option value="commercial_signal_only">Commercial signal only</option><option value="self_reported">Self-reported</option><option value="independently_verified">Independent citation</option></select></label>
+<label><span class="sr-only">Campaign</span><select id="campaign-filter"><option value="">All campaigns</option></select></label>
+<button id="clear-filters" type="button" class="text-button">Clear filters</button>
+<div class="filter-toggles"><label class="checkbox"><input id="revenue-evidence" type="checkbox">Has income citation</label><label class="checkbox"><input id="verified-x" type="checkbox">Verified X identity only (optional)</label></div>
+</section>
+<p id="queue-note" class="muted" hidden>Due now in UTC. Log a manual follow-up, then reschedule or clear the date in Details. Suppressed people are excluded.</p>
+<div class="table-heading" aria-hidden="true"><span>PERSON / COMPANY</span><span>PERSONAL X</span><span>COMMERCIAL OFFER</span><span>INCOME EVIDENCE</span><span>REVIEW STATE</span><span></span></div>
+<section id="cards" aria-label="Prospect review rows"></section>
+<div id="empty" class="empty-state" hidden><h2>No prospects to show</h2><p>No matches or no follow-ups due. Clear filters to see imported research. Discovery remains the CLI workflow.</p></div>
+<div class="list-footer"><p id="summary" aria-live="polite">Loading local research…</p><span>Research, not a send list</span></div>
+</section>
+<footer>Manual log, not an integrated X inbox. No open/click tracking. Identity ≠ DM availability, buying intent or budget. Discovery uses the existing CLI; quality and caveats still matter.</footer>
+</main></div>
+</body></html>
